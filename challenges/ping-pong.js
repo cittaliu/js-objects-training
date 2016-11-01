@@ -38,27 +38,62 @@
 */
 
 // YOUR CODE HERE
-var table = [null, null, {steps: 4}, null];
-var record = 0;
-var i=0;
+// var table = [null, null, {steps: 4}, null];
+// var record = 0;
+// var i=0;
+// function pingPong(arr, speed){
+//   for(;i<arr.length;i++){
+//     if(arr[i]!==null){
+//       record = arr[i].steps;
+//       break;
+//     }
+//   }
+//   if((record/(arr.length-1))%2 == 0){
+//     arr[i].steps++;
+//     arr[i+1]=arr[i];
+//     arr[i]=null;
+//
+//   }else{
+//     arr[i].steps++;
+//     arr[i-1]=arr[i];
+//     arr[i]=null;
+//   }
+//   return arr;
+// }
+//
+// pingPong(table);
+
+
 function pingPong(arr, speed){
+  var length = arr.length;
+  var record = 0;
+  var i=0;
   for(;i<arr.length;i++){
     if(arr[i]!==null){
-      record = arr[i].steps;
+      record = arr[i].steps + speed;
       break;
     }
   }
-  if((record/(arr.length-1))%2 == 0){
-    arr[i].steps++;
-    arr[i+1]=arr[i];
+  //decide if it is located at the first/last position in the array;
+  //if step number % (length-1) ==0;
+  //the object is located either in the first/last position;
+  if(record % (length-1)==0){
+    if(record/(length-1)%2==0){
+      arr[0]=arr[i];
+    }else{
+      arr[length-1]=arr[i];
+      arr[i]=null;
+    }
+  //decide the location in the array;
+  }else if((Math.floor(record/(length-1)))%2==0){
+    //move right
+    arr[record%(length-1)]=arr[i];
     arr[i]=null;
-
   }else{
-    arr[i].steps++;
-    arr[i-1]=arr[i];
+    //move left
+    arr[length-1-(record%(length-1))]=arr[i];
     arr[i]=null;
   }
   return arr;
-}
 
-pingPong(table);
+}
