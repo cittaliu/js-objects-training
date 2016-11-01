@@ -38,3 +38,27 @@
 */
 
 // YOUR CODE HERE
+var table = [null, null, {steps: 4}, null];
+var record = 0;
+var i=0;
+function pingPong(arr, speed){
+  for(;i<arr.length;i++){
+    if(arr[i]!==null){
+      record = arr[i].steps;
+      break;
+    }
+  }
+  if((record/(arr.length-1))%2 == 0){
+    arr[i].steps++;
+    arr[i+1]=arr[i];
+    arr[i]=null;
+
+  }else{
+    arr[i].steps++;
+    arr[i-1]=arr[i];
+    arr[i]=null;
+  }
+  return arr;
+}
+
+pingPong(table);

@@ -31,3 +31,15 @@
 */
 
 // YOUR CODE HERE
+function letterCount(str){
+  var newStr = str.replace(/[^a-zA-Z0-9]/g,'').toLowerCase();
+  var Record = {};
+  for(var i=0, length=newStr.length; i<length; i++){
+    if(!Record.hasOwnProperty(str.charAt(i))){
+      Record[newStr.charAt(i)]=1/length;
+    }else{
+      Record[newStr.charAt(i)]+=1/length;
+    }
+  }
+  return Record;
+}

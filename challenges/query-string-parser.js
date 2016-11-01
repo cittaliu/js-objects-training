@@ -45,3 +45,22 @@
 */
 
 // YOUR CODE HERE
+
+function parseQueryString(str){
+  var combo = str.split("&");
+  var result = {};
+  combo.forEach(function(element){
+    var piece = element.split("=");
+    result[piece[0]]=piece[1];
+  });
+  return result;
+}
+
+function queryParameterString(obj){
+  var str = "";
+  for(var key in obj){
+    str += key + "=" + obj[key] + ' ';
+  }
+  str=str.trim().replace(/[' ']/g,'&');
+  return str;
+}

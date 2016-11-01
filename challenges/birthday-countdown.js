@@ -34,3 +34,34 @@
 */
 
 // YOUR CODE HERE
+
+function daysUntilDate(date){
+  return Math.ceil((Date.parse(date)-Date.now())/86400000);
+}
+
+function birthdayReminder(list){
+
+  var result = [];
+  var today = new Date();
+  var date = today.getDate();
+  var year = today.getFullYear();
+  var month = today.getMonth();
+  list.forEach(function(element){
+    var arr = element.dob.split('/');
+    if(arr[0]>month || (arr[0]==month && arr[1]>=date)){
+      arr[2]=year;
+    }
+    else if(arr[0]<month || (arr[0]==month && arr[1]<date)){
+      arr[2]=year+1;
+    }
+    var days = arr.join('/');
+    result.push(element.name + "'s birthday is in " +daysUntilDate(days)+" days");
+  });
+
+  result = result.sort(function(str1, str2){
+    var day1=parseInt(str1.replace(/[^0-9]/g,''));
+    var day2=parseInt(str2.replace(/[^0-9]/g,''));
+    return (day1 == day2)? 0:((day1<day2)? -1:1);
+  });
+  return result;
+}
