@@ -48,6 +48,7 @@ function birthdayReminder(list){
   var month = today.getMonth();
   list.forEach(function(element){
     var arr = element.dob.split('/');
+    //Determine if the birthday is within this year or next year
     if(arr[0]>month || (arr[0]==month && arr[1]>=date)){
       arr[2]=year;
     }

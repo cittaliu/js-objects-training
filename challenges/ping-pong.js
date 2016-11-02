@@ -38,62 +38,49 @@
 */
 
 // YOUR CODE HERE
-// var table = [null, null, {steps: 4}, null];
-// var record = 0;
-// var i=0;
-// function pingPong(arr, speed){
-//   for(;i<arr.length;i++){
-//     if(arr[i]!==null){
-//       record = arr[i].steps;
-//       break;
-//     }
-//   }
-//   if((record/(arr.length-1))%2 == 0){
-//     arr[i].steps++;
-//     arr[i+1]=arr[i];
-//     arr[i]=null;
-//
-//   }else{
-//     arr[i].steps++;
-//     arr[i-1]=arr[i];
-//     arr[i]=null;
-//   }
-//   return arr;
-// }
-//
-// pingPong(table);
 
-
-function pingPong(arr, speed){
-  var length = arr.length;
-  var record = 0;
-  var i=0;
-  for(;i<arr.length;i++){
-    if(arr[i]!==null){
-      record = arr[i].steps + speed;
-      break;
+function pingPong(speed, ...arrs ){
+  //if there are more than one player
+  //use an array to store the results from each player
+  var result = [];
+  arrs.forEach(function(arr){
+    var length = arr.length;
+    var next = 0;
+    var maxIndex = length-1;
+    var i=0;
+    for(;i<length;i++){
+      if(arr[i]!==null){
+        next = arr[i].steps + speed;
+        break;
+      }
     }
-  }
-  //decide if it is located at the first/last position in the array;
-  //if step number % (length-1) ==0;
-  //the object is located either in the first/last position;
-  if(record % (length-1)==0){
-    if(record/(length-1)%2==0){
-      arr[0]=arr[i];
+    //decide the location in the array;
+    if((Math.floor(next/maxIndex))%2==0){
+      //move right
+      arr[i].steps += speed;
+      if(next%maxIndex !== i){
+        arr[next%maxIndex]=arr[i];
+        arr[i]=null;
+      }
     }else{
-      arr[length-1]=arr[i];
-      arr[i]=null;
+      //move left
+      arr[i].steps += speed;
+      if(maxIndex-(next%maxIndex) !== i){
+        arr[maxIndex-(next%maxIndex)] = arr[i];
+        arr[i] = null;
+      }
     }
-  //decide the location in the array;
-  }else if((Math.floor(record/(length-1)))%2==0){
-    //move right
-    arr[record%(length-1)]=arr[i];
-    arr[i]=null;
-  }else{
-    //move left
-    arr[length-1-(record%(length-1))]=arr[i];
-    arr[i]=null;
-  }
-  return arr;
+    result.push(arr);
+  });
+  return result;
 
 }
+
+//test code
+var table1 = [{steps: 0}, null, null, null];
+var table2 = [null, null, {steps: 2}, null];
+console.log(pingPong(1, table1, table2));
+console.log(pingPong(1, table1, table2));
+console.log(pingPong(1, table1, table2));
+console.log(pingPong(1, table1, table2));
+console.log(pingPong(1, table1, table2));
